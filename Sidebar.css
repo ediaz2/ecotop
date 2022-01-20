@@ -1,0 +1,79 @@
+* {
+  list-style: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  background: #f5f6fa;
+}
+.wrapper {
+  display: flex;
+}
+.section {
+  width: 100%;
+}
+.wrapper .sidebar {
+  background: gainsboro;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 245px;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.wrapper .sidebar .profile {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.wrapper .sidebar .profile h3 {
+  color: darkslateblue;
+}
+.sidebar_items {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar_item2 {
+  position: fixed;
+  width: 245px;
+  bottom: 0;
+}
+.wrapper .sidebar ul li a {
+  display: block;
+  padding: 13px 30px;
+  border-bottom: 1px solid darkslateblue;
+  color: darkslateblue;
+  font-size: 18px;
+}
+
+.wrapper .sidebar ul li a:hover,
+.wrapper .sidebar ul li a.active {
+  color: white;
+  background: darkslateblue;
+}
+
+.wrapper .section {
+  margin-left: 245px;
+}
+.wrapper .section .top_navbar {
+  background: gainsboro;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.wrapper .section .top_navbar .hamburger a {
+  font-size: 28px;
+}
+
+.wrapper .section .container {
+  margin: 30px;
+  background: #fff;
+  padding: 50px;
+  line-height: 28px;
+}
