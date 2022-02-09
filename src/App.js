@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/Login/LoginPage';
 import Navbar from './components/Navbar';
+import ListarUsuario from './components/listarUsuario';
 
 // private routes
 const PrivateRoute = ({ component: RouteComponent }) => {
@@ -13,13 +14,6 @@ const PrivateRoute = ({ component: RouteComponent }) => {
   return <Navigate to="/login" />;
 };
 
-const NoEntrar = () => {
-  return (
-    <div>
-      <h1>No entrar</h1>
-    </div>
-  );
-};
 const Home = () => {
   return (
     <div>
@@ -36,8 +30,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<PrivateRoute component={Home} />} />
         <Route
-          path="/no-entrar"
-          element={<PrivateRoute component={NoEntrar} />}
+          path="/users"
+          element={<PrivateRoute component={ListarUsuario} />}
         />
       </Routes>
     </div>

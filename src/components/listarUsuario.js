@@ -1,9 +1,3 @@
-//import { getUsuario } from '../../Providers/usuarios';
-//import { useEffect, useState } from 'react';
-//import { useParams } from 'react-router-dom';
-import './listarUsuario.css';
-import 'bootstrap/dist/css/bootstrap.css';
-
 const listarUsuario = () => {
   return (
     <div>
