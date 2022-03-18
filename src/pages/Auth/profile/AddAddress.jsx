@@ -1,19 +1,27 @@
 import { useState } from 'react';
 import MMap from '../../../components/molecules/MMap';
+import { PageLayout } from '../../../layouts/PageLayout';
+import { MContainer } from '../../../components/molecules/MContainer';
+import { ARouterLink } from '../../../components/atoms/ARouterLink';
+
 function AddAddress() {
   const [lng, setLng] = useState(-75.1151377973355);
   const [lat, setLat] = useState(-11.429155004201874);
   return (
-    <div className="p-5 ">
-      <div>
-        <div className="flex justify-between items-end mb-3">
-          <div className="font-sans text-lg font-medium text-primary">
+    <PageLayout>
+      <MContainer>
+        <div className="flex items-center justify-between">
+          <h3 className="text-primary font-semibold text-lg">
             Mi Perfil / Añadir dirección
-          </div>
-          <div className="bg-primary text-white px-3 py-2 rounded">
-            <button>Guardar dirección</button>
-          </div>
+          </h3>
+          <ARouterLink to="/profile">
+            <button className=" bg-primary text-white px-3 py-1 rounded">
+              Guardar dirección
+            </button>
+          </ARouterLink>
         </div>
+      </MContainer>
+      <MContainer>
         <div className="grid grid-cols-2 rounded-lg border-2">
           <div className="p-4 bg-white">
             <div className="mt-5">Departamento</div>
@@ -74,8 +82,8 @@ function AddAddress() {
             <MMap longitude={lng} latitude={lat} />
           </div>
         </div>
-      </div>
-    </div>
+      </MContainer>
+    </PageLayout>
   );
 }
 

@@ -10,6 +10,7 @@ import {
   ChevronLeftIcon,
   HomeIcon,
   UsersIcon,
+  UserIcon,
 } from '@heroicons/react/solid';
 
 export const OSidebar = () => {
@@ -58,6 +59,10 @@ export const OSidebar = () => {
               <ARouterLink to="/users">
                 <UsersIcon className="flex-shrink-0 text-white w-6 h-6 transition duration-75 mr-3" />
                 <span className="flex-1 whitespace-nowrap">Usuarios</span>
+              </ARouterLink>
+              <ARouterLink to="/profile">
+                <UserIcon className="flex-shrink-0 text-white w-6 h-6 transition duration-75 mr-3" />
+                <span className="flex-1 whitespace-nowrap">Perfil</span>
               </ARouterLink>
             </ul>
           </nav>

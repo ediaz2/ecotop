@@ -23,10 +23,7 @@ function App() {
           path="/users"
           element={<PrivateRoute component={ListUserPage} />}
         />
-        <Route
-          path="/profile"
-          element={<PrivateRoute component={Profile} />}
-        />
+        <Route path="/profile" element={<PrivateRoute component={Profile} />} />
         <Route
           path="/addadress"
           element={<PrivateRoute component={AddAddress} />}
