@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import MMap from '../components/molecules/MMap';
+import MMap from '../../../components/molecules/MMap';
 function AddAddress() {
   const [lng, setLng] = useState(-75.1151377973355);
   const [lat, setLat] = useState(-11.429155004201874);

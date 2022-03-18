@@ -6,40 +6,42 @@ export const MTable = ({ data, isLoading, columns, onRowClick, className }) => {
   };
 
   return (
-    <table className={`${className} w-full table-auto`}>
-      <thead>
-        <tr className="uppercase text-sm leading-normal">
-          {columns.map((column) => (
-            <th key={column.key} className="py-3 px-6 text-left">
-              {column.title}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      {isLoading ? (
-        <tbody>
-          <tr>
-            <td colSpan={columns.length} className="text-center">
-              Cargando...
-            </td>
+    <div className="max-h-[48rem] overflow-y-auto">
+      <table className={`w-full table-auto  ${className}`}>
+        <thead>
+          <tr className="uppercase text-sm leading-normal">
+            {columns.map((column) => (
+              <th key={column.key} className="py-3 px-6 text-left">
+                {column.title}
+              </th>
+            ))}
           </tr>
-        </tbody>
-      ) : (
-        <tbody className="text-sm font-light">
-          {data.map((row, index) => (
-            <tr
-              key={row.id ?? index}
-              onClick={handleRowClick}
-              className="hover:bg-gray-100">
-              {columns.map((column) => (
-                <td key={column.key} className="py-3 px-6">
-                  <div className="flex items-center">{row[column.key]}</div>
-                </td>
-              ))}
+        </thead>
+        {isLoading ? (
+          <tbody>
+            <tr>
+              <td colSpan={columns.length} className="text-center">
+                Cargando...
+              </td>
             </tr>
-          ))}
-        </tbody>
-      )}
-    </table>
+          </tbody>
+        ) : (
+          <tbody className="text-sm font-light">
+            {data.map((row, index) => (
+              <tr
+                key={row.id ?? index}
+                onClick={handleRowClick}
+                className="hover:bg-gray-100">
+                {columns.map((column) => (
+                  <td key={column.key} className="py-3 px-6">
+                    <div className="flex items-center">{row[column.key]}</div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        )}
+      </table>
+    </div>
   );
 };
