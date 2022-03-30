@@ -17,13 +17,13 @@ const LoginPage = () => {
   const { setCurrentUser } = useCurrentUser();
 
   useEffect(() => {
-    setCurrentUser(data);
     if (data) {
       localStorage.setItem('token', data.token);
       navigate('/users');
+      setCurrentUser(data.user);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, navigate]);
+  }, [data]);
 
   return (
     <AuthLayout>
