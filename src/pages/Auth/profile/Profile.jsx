@@ -2,7 +2,6 @@ import { ARouterLink } from '../../../components/atoms/ARouterLink';
 import { PageLayout } from '../../../layouts/PageLayout';
 import { MContainer } from '../../../components/molecules/MContainer';
 import { useCurrentUser } from '../../../hooks/useCurrentUser';
-
 import { useEcotopFind } from 'hooks/useEcotopFind';
 
 function Profile() {
@@ -30,14 +29,12 @@ function Profile() {
         <div className="grid grid-cols-3 bg-white px-4 py-2 mt-2 rounded-md border border-secondary-100">
           <div className="">Nombre y apellidos</div>
           <div className="col-span-2">
-            {/* {nombre} {apellidoPaterno} {apellidoMaterno} */}
+            {user.nombre} {user.apellidoPaterno} {user.apellidoMaterno}
           </div>
           <div className=" bg-gray-100">Documento</div>
-          <div className="col-span-2 bg-gray-100">
-            DNI {/** nroDocumento */}
-          </div>
+          <div className="col-span-2 bg-gray-100">DNI {user.nroDocumento}</div>
           <div className=" ">Telefono</div>
-          <div className="col-span-2">{/** celular */}</div>
+          <div className="col-span-2">{user.celular}</div>
         </div>
         <div className="flex justify-between mt-5 items-end">
           <div className=" text-black font-medium ">Direcciones</div>
