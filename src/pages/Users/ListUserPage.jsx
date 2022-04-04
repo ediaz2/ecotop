@@ -10,7 +10,7 @@ const ListUserPage = () => {
     { key: 'email', title: 'Email' },
   ];
 
-  const [users, isLoading] = useEcotopFind('users');
+  const [users, isLoading] = useEcotopFind('corePersona');
 
   return (
     <PageLayout>
