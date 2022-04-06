@@ -1,19 +1,33 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import { findUsers } from 'store/userReducer';
+
 import { MBox } from 'components/molecules/MBox';
 import { MContainer } from 'components/molecules/MContainer';
 import { MTable } from 'components/molecules/MTable';
-import { PageLayout } from 'layouts/PageLayout';
-import { useEcotopFind } from 'hooks/useEcotopFind';
 
-const ListUserPage = () => {
+export default () => {
+  const dispatch = useDispatch();
+
+  const users = useSelector((state) => state.user.users);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    dispatch(findUsers()).then(() => {
+      setIsLoading(false);
+    });
+  }, []);
+
   const columns = [
-    { key: 'name', title: 'Name' },
-    { key: 'email', title: 'Email' },
+    { key: 'nombre', title: 'Nombre' },
+    { key: 'correo', title: 'Correo' },
+    { key: 'celular', title: 'Teléfono' },
   ];
 
-  const [users, isLoading] = useEcotopFind('corePersona');
-
   return (
-    <PageLayout>
+    <>
       <MContainer>
         <div className="flex items-center justify-between">
           <h3 className="text-primary font-semibold text-lg">
@@ -26,8 +40,6 @@ const ListUserPage = () => {
           <MTable isLoading={isLoading} columns={columns} data={users} />
         </MBox>
       </MContainer>
-    </PageLayout>
+    </>
   );
 };
-
-export default ListUserPage;

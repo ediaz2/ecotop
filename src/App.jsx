@@ -1,35 +1,36 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from 'pages/Auth/LoginPage';
-import ListUserPage from 'pages/Users/ListUserPage';
-import Profile from 'pages/Auth/profile/Profile';
-import AddAddress from 'pages/Auth/profile/AddAddress';
-import HomePage from 'pages/Home/HomePage';
-import { CurrentUserProvider } from 'context/CurrentUserContext';
+import Users from 'pages/Users/Index';
+import Profile from 'pages/Profile/Index';
+import ProfileAddresses from 'pages/Profile/Addresses';
+import Home from 'pages/Home/Index';
+import { PageLayout } from 'layouts/PageLayout';
 
 // private routes
 const PrivateRoute = ({ component: RouteComponent }) => {
   const token = localStorage.getItem('token');
-  if (token) return <RouteComponent />;
+  if (token)
+    return (
+      <PageLayout>
+        <RouteComponent />
+      </PageLayout>
+    );
   return <Navigate to="/login" />;
 };
 
 function App() {
   return (
-    <CurrentUserProvider>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<PrivateRoute component={HomePage} />} />
-        <Route
-          path="/users"
-          element={<PrivateRoute component={ListUserPage} />}
-        />
-        <Route path="/profile" element={<PrivateRoute component={Profile} />} />
-        <Route
-          path="/addadress"
-          element={<PrivateRoute component={AddAddress} />}
-        />
-      </Routes>
-    </CurrentUserProvider>
+    <Routes>
+      <Route path="/" element={<Navigate to="/main" />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/main" element={<PrivateRoute component={Home} />} />
+      <Route path="/users" element={<PrivateRoute component={Users} />} />
+      <Route path="/profile" element={<PrivateRoute component={Profile} />} />
+      <Route
+        path="/profile/addresses"
+        element={<PrivateRoute component={ProfileAddresses} />}
+      />
+    </Routes>
   );
 }
 

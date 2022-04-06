@@ -1,43 +1,45 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
-function MMap(props) {
+function MMap({ position, onSetPosition }) {
   const mapContainer = useRef(null);
 
-  const [lng, setLng] = useState(props.longitude);
-  const [lat, setLat] = useState(props.latitude);
-  const [zoom, setZoom] = useState(5);
+  const [newPosition, setNewPosition] = useState({
+    lng: -75.1151377973355,
+    lat: -11.429155004201874,
+  });
 
   useEffect(() => {
+    setNewPosition(position);
     const map = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [lng, lat],
-      zoom: zoom,
+      center: newPosition,
+      zoom: 10,
     });
 
     const marker = new mapboxgl.Marker({
       draggable: true,
     })
-      .setLngLat([lng, lat])
+      .setLngLat(newPosition)
       .addTo(map);
 
     function onDragEnd() {
       const lngLat = marker.getLngLat();
-      setLng(lngLat.lng);
-      setLat(lngLat.lat);
+      setNewPosition(lngLat);
+      onSetPosition(lngLat);
     }
 
     marker.on('dragend', onDragEnd);
-  }, []);
+  }, [position]);
 
   return (
     <div ref={mapContainer} className="h-full ">
       <div className="absolute z-10 mx-2 my-7 p-2 rounded bottom-4 left-0  text-white bg-primary">
-        <div>Longitude: {lng}</div>
-        <div>Latitude: {lat}</div>
+        <div>Longitude: {newPosition.lng}</div>
+        <div>Latitude: {newPosition.lat}</div>
       </div>
     </div>
   );
