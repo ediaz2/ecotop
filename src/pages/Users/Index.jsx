@@ -36,7 +36,7 @@ export default () => {
         </div>
       </MContainer>
       <MContainer>
-        <MBox className="bg-white">
+        <MBox className="bg-white border-2 border-secondary-100">
           <MTable isLoading={isLoading} columns={columns} data={users} />
         </MBox>
       </MContainer>
