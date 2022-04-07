@@ -10,8 +10,12 @@ export const MSliderClean = ({ items }) => (
       arrows: false,
     }}>
     {items.map((item) => (
-      <SplideSlide className="rounded-lg" key={item.title}>
-        <img src={item.image} alt={item.title} className="rounded-lg" />
+      <SplideSlide key={item.title}>
+        <img
+          src={item.image}
+          alt={item.title}
+          className="h-full object-cover"
+        />
       </SplideSlide>
     ))}
   </Splide>

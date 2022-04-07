@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { authLogout } from 'store/authReducer';
 
 import { Abutton } from 'components/atoms/AButton';
 import { ALogo } from 'components/atoms/ALogo';
 import { AIsologo } from 'components/atoms/AIsologo';
 import { ARouterLink } from 'components/atoms/ARouterLink';
-import { useNavigate } from 'react-router-dom';
 import {
   LogoutIcon,
   ChevronLeftIcon,
@@ -15,12 +18,14 @@ import {
 
 export const OSidebar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [isOpen, setIsOpen] = useState(true);
 
   const toggle = () => setIsOpen(!isOpen);
 
   const signOut = () => {
-    localStorage.removeItem('token');
+    dispatch(authLogout());
     navigate('/login');
   };
 
@@ -52,7 +57,7 @@ export const OSidebar = () => {
           </div>
           <nav>
             <ul className="space-y-6">
-              <ARouterLink to="/">
+              <ARouterLink to="/main">
                 <HomeIcon className="flex-shrink-0 text-white w-6 h-6 transition duration-75 mr-3" />
                 <span className="flex-1 whitespace-nowrap">Inicio</span>
               </ARouterLink>

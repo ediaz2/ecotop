@@ -1,18 +1,22 @@
 import { useState } from 'react';
-import MMap from '../../../components/molecules/MMap';
-import { PageLayout } from '../../../layouts/PageLayout';
-import { MContainer } from '../../../components/molecules/MContainer';
-import { ARouterLink } from '../../../components/atoms/ARouterLink';
+
+import { useGeolocation } from 'hooks/useGeolocation';
+
+import MMap from 'components/molecules/MMap';
+import { MContainer } from 'components/molecules/MContainer';
+import { ARouterLink } from 'components/atoms/ARouterLink';
 
 function AddAddress() {
-  const [lng, setLng] = useState(-75.1151377973355);
-  const [lat, setLat] = useState(-11.429155004201874);
+  const { position } = useGeolocation();
+
+  const [newPosition, setNewPosition] = useState({ lng: 0, lat: 0 });
+
   return (
-    <PageLayout>
+    <>
       <MContainer>
         <div className="flex items-center justify-between">
           <h3 className="text-primary font-semibold text-lg">
-            Mi Perfil / Añadir dirección
+            Mi Perfil / Añadir dirección {newPosition.lat} | {newPosition.lng}
           </h3>
           <ARouterLink to="/profile">
             <button className=" bg-primary text-white px-3 py-1 rounded">
@@ -79,11 +83,11 @@ function AddAddress() {
             </div>
           </div>
           <div>
-            <MMap longitude={lng} latitude={lat} />
+            <MMap position={position} onSetPosition={setNewPosition} />
           </div>
         </div>
       </MContainer>
-    </PageLayout>
+    </>
   );
 }
 
