@@ -4,7 +4,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const httpClient = axios.create({
   baseURL: BASE_URL,
-  timeout: 5000,
+  timeout: 20000,
 });
 
 httpClient.interceptors.request.use(
