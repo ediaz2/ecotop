@@ -44,3 +44,17 @@ export const updateUser = async (user, id) => {
     return [null, error];
   }
 };
+
+export const addAddressUser = async (addressUser, id) => {
+  try {
+    await httpClient.post('direccion', addressUser, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const { data } = await httpClient.get(`corePersona/${id}`);
+    return [data.data, null];
+  } catch (error) {
+    return [null, error];
+  }
+};

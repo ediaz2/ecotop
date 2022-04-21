@@ -49,9 +49,6 @@ export const CardRegister = ({ setToggleAuth }) => {
       setStepNext(false);
     } else {
       const sample = {
-        direccion: '-',
-        referenciaDireccion: '-',
-        coordenadaDireccion: '-',
         idTipoDocumento: '6226b89b7d601c360e01481d',
         idRol: '6260d2165af517fd619899d1',
         estado: 'A',

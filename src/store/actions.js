@@ -4,6 +4,7 @@ export const AUTH_REGISTER = 'AUTH_REGISTER';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const UPDATE_CURRENT_USER = 'UPDATE_CURRENT_USER';
+export const ADD_ADDRESS_USER = 'ADD_ADDRESS_USER';
 
 // Reducer user
 export const GET_ALL_USER = 'GET_ALL_USER';
