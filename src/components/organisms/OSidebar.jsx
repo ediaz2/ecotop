@@ -59,7 +59,7 @@ export const OSidebar = () => {
     {
       name: 'Servicios',
       icon: ReceiptTaxIcon,
-      path: '/servicio/create',
+      path: '/servicio/abiertos',
       can: ['ADMIN', 'PROVEEDOR'],
     },
   ];

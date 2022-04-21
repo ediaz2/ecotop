@@ -2,15 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MContainer } from 'components/molecules/MContainer';
 import { MBox } from 'components/molecules/MBox';
-import { useNavigate } from 'react-router-dom';
 import { getServicesByUser } from 'store/servicioReducer';
 import { Abutton } from 'components/atoms/AButton';
 
 import { createProveedorServicio } from 'store/proveedorServicioReducer';
 
 const AbiertosPage = () => {
-  const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const servicios = useSelector((state) => state.servicio.currentService);
@@ -18,7 +15,7 @@ const AbiertosPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(getServicesByUser(currentUser._id)).then(() => {
+    dispatch(getServicesByUser(null, '6260d2ec5af517fd619899d8')).then(() => {
       setIsLoading(false);
     });
   }, []);
@@ -50,8 +47,8 @@ const AbiertosPage = () => {
       estado: 'A',
       fechaCreacion: getCurrentDate(),
       fechaModificacion: getCurrentDate(),
-      idUsuarioCreacion: currentUser._id,
-      idUsuarioModificacion: currentUser._id,
+      idUsuarioCreacion: 1,
+      idUsuarioModificacion: 1,
     };
     dispatch(createProveedorServicio(payload));
   };
@@ -61,15 +58,8 @@ const AbiertosPage = () => {
       <MContainer>
         <div className="flex items-center justify-between">
           <h3 className="text-primary font-semibold text-lg">
-            Mis Solicitudes
+            Solicitudes Abiertas
           </h3>
-          <button
-            className=" bg-primary text-white px-3 py-1 rounded"
-            onClick={() => {
-              navigate('/servicio/create');
-            }}>
-            Solicitudes de Servicio
-          </button>
         </div>
       </MContainer>
       <MContainer>
@@ -95,12 +85,9 @@ const AbiertosPage = () => {
                     <h3 className="font-semibold text-lg">Encargado: ---</h3>
                   </div>
                   <div className="flex items-center">
-                    {servicio.idEstadoServicio ===
-                      '6260d2ec5af517fd619899d8' && (
-                      <Abutton onClick={() => sendAplicar(servicio._id)}>
-                        Aplicar
-                      </Abutton>
-                    )}
+                    <Abutton onClick={() => sendAplicar(servicio._id)}>
+                      Aplicar
+                    </Abutton>
                   </div>
                 </div>
               </MBox>

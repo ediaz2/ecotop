@@ -5,6 +5,7 @@ import Profile from 'pages/Profile/Index';
 import ProfileEdit from 'pages/Profile/Edit';
 import ProfileAddresses from 'pages/Profile/Addresses';
 import CreateService from 'pages/Services/Create';
+import AbiertoService from 'pages/Services/Abiertos';
 import Home from 'pages/Home/Index';
 import { PageLayout } from 'layouts/PageLayout';
 
@@ -33,8 +34,8 @@ function App() {
         element={<PrivateRoute component={ProfileEdit} />}
       />
       <Route
-        path="/servicio/create"
-        element={<PrivateRoute component={CreateService} />}
+        path="/servicio/abiertos"
+        element={<PrivateRoute component={AbiertoService} />}
       />
       <Route
         path="/profile/addresses"

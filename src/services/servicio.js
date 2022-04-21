@@ -26,10 +26,11 @@ export const updateService = async (payload) => {
   }
 };
 
-export const getServicesByUser = async (idCorePersona) => {
+export const getServicesByUser = async (idCorePersona, idEstadoServicio) => {
   try {
+    console.log(idCorePersona + '-' + idEstadoServicio);
     const { data } = await httpClient.get('servicio', {
-      params: { idCorePersona },
+      params: { idCorePersona, idEstadoServicio },
     });
     return [data.data, null];
   } catch (error) {
