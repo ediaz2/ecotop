@@ -49,6 +49,14 @@ export const updateUser = (user, id) => async (dispatch) => {
   }
 };
 
+export const addAddressUser = (addressUser, id) => async (dispatch) => {
+  const [currentUser] = await authServices.addAddressUser(addressUser, id);
+  dispatch({
+    type: actions.ADD_ADDRESS_USER,
+    payload: { currentUser },
+  });
+};
+
 const handlers = {
   [actions.AUTH_LOGIN]: (state, { token }) => ({
     ...state,
@@ -67,6 +75,10 @@ const handlers = {
     currentUser,
   }),
   [actions.UPDATE_CURRENT_USER]: (state, { currentUser }) => ({
+    ...state,
+    currentUser,
+  }),
+  [actions.ADD_ADDRESS_USER]: (state, { currentUser }) => ({
     ...state,
     currentUser,
   }),

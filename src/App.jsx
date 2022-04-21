@@ -38,6 +38,10 @@ function App() {
         element={<PrivateRoute component={AbiertoService} />}
       />
       <Route
+        path="/servicio/create"
+        element={<PrivateRoute component={CreateService} />}
+      />
+      <Route
         path="/profile/addresses"
         element={<PrivateRoute component={ProfileAddresses} />}
       />

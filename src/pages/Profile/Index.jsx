@@ -4,10 +4,10 @@ import { ARouterLink } from 'components/atoms/ARouterLink';
 import { MBox } from 'components/molecules/MBox';
 import { MContainer } from 'components/molecules/MContainer';
 import { MTable } from 'components/molecules/MTable';
+import { useEffect, useState } from 'react';
 
 export default () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
-
   const columns = [
     { key: 'label', title: '' },
     { key: 'value', title: '' },
@@ -26,12 +26,40 @@ export default () => {
     { label: 'Teléfono', value: currentUser.celular },
   ];
 
-  const dataAddress = [];
+  const columnsAddress = [
+    { key: 'item', title: 'Nro' },
+    { key: 'place', title: 'Lugar' },
+    { key: 'address', title: 'Direccion' },
+    { key: 'reference', title: 'Referencia' },
+  ];
+  const [dataAddress, setDataAddress] = useState([]);
+  useEffect(() => {
+    if (currentUser.direcciones) {
+      for (let index = 0; index < currentUser.direcciones.length; index++) {
+        const direccion = currentUser.direcciones[index];
+        setDataAddress((prev) =>
+          prev.concat({
+            item: index + 1,
+            place: `${direccion.distrito}-${direccion.provincia}-${direccion.departamento}`,
+            address: `${direccion.tipoCalle} ${direccion.nombreCalle}`,
+            reference: `${direccion.referencias}`,
+          }),
+        );
+      }
+    }
+  }, []);
 
   return (
     <>
       <MContainer>
-        <h3 className="text-primary font-semibold text-lg">Mi Perfil</h3>
+        <div className="flex items-center justify-between">
+          <h3 className="text-primary font-semibold text-lg">Mi Perfil</h3>
+          <ARouterLink
+            to="/profile/edit"
+            className="bg-primary rounded-md  px-2">
+            <span className="text-white">EDITAR</span>
+          </ARouterLink>
+        </div>
       </MContainer>
       <MContainer>
         <div className="flex justify-between mb-1 items-end">
@@ -58,7 +86,13 @@ export default () => {
             Añadir nueva direccion
           </ARouterLink>
         </div>
-        <div className="grid grid-cols-3 bg-white px-4 py-2 mt-2 rounded-md border border-secondary-100 h-20"></div>
+        <MBox className="bg-white border-2 border-secondary-100 mt-2">
+          <MTable
+            columns={columnsAddress}
+            isShowHeader={true}
+            data={dataAddress}
+          />
+        </MBox>
       </MContainer>
     </>
   );

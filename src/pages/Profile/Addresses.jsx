@@ -12,10 +12,16 @@ import { MBox } from 'components/molecules/MBox';
 import { MSelect } from 'components/molecules/forms/MSelect';
 import { MTextarea } from 'components/molecules/forms/MTextarea';
 import { MInput } from 'components/molecules/forms/MInput';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { addAddressUser } from 'store/authReducer';
 
 function AddAddress() {
   const { position } = useGeolocation();
 
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [newPosition, setNewPosition] = useState({ lng: 0, lat: 0 });
 
   const [departments, setDepartments] = useState([]);
@@ -44,14 +50,36 @@ function AddAddress() {
   });
 
   const onSubmit = handleSubmit((data) => {
-    console.log({
-      ...data,
-      coods: newPosition,
-      departmento: JSON.parse(data.departmento).name,
-      provincia: JSON.parse(data.provincia).name,
-      distrito: JSON.parse(data.distrito).name,
+    dispatch(
+      addAddressUser(
+        {
+          ...data,
+          coordenadas: {
+            latitude: newPosition.lat,
+            longitude: newPosition.lng,
+          },
+          idCorePersona: currentUser._id,
+          departamento: JSON.parse(data.departmento).name,
+          provincia: JSON.parse(data.provincia).name,
+          distrito: JSON.parse(data.distrito).name,
+          tipoCalle: data.tipo,
+          numeroCalle: data.numberType,
+          nombreCalle: data.nameType,
+          pisoDepartamento: data.piso,
+          referencias: data.referencia,
+          observacion: 'visto',
+          descripcion: 'vistito',
+          estado: 'A',
+          fechaCreacion: '2022-04-08T02:43:31.551Z',
+          fechaModificacion: '2022-04-08T02:43:31.551Z',
+          idUsuarioCreacion: 1,
+          idUsuarioModificacion: 1,
+        },
+        currentUser._id,
+      ),
+    ).then(() => {
+      navigate('/profile');
     });
-    reset();
   });
 
   useEffect(() => {
