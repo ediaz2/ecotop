@@ -3,6 +3,7 @@ import LoginPage from 'pages/Auth/LoginPage';
 import Users from 'pages/Users/Index';
 import Profile from 'pages/Profile/Index';
 import ProfileAddresses from 'pages/Profile/Addresses';
+import CreateService from 'pages/Services/Create';
 import Home from 'pages/Home/Index';
 import { PageLayout } from 'layouts/PageLayout';
 
@@ -26,6 +27,10 @@ function App() {
       <Route path="/main" element={<PrivateRoute component={Home} />} />
       <Route path="/users" element={<PrivateRoute component={Users} />} />
       <Route path="/profile" element={<PrivateRoute component={Profile} />} />
+      <Route
+        path="/servicio/create"
+        element={<PrivateRoute component={CreateService} />}
+      />
       <Route
         path="/profile/addresses"
         element={<PrivateRoute component={ProfileAddresses} />}
