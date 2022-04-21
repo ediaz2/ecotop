@@ -18,8 +18,26 @@ export const createService = (payload) => async (dispatch) => {
   }
 };
 
+export const getServicesByUser = (idCorePersona) => async (dispatch) => {
+  try {
+    const [currentService] = await servicioServices.getServicesByUser(
+      idCorePersona,
+    );
+    dispatch({
+      type: actions.GET_SERVICES_BY_USER,
+      payload: { currentService },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const handlers = {
   [actions.CREATE_SERVICE]: (state, { currentService }) => ({
+    ...state,
+    currentService,
+  }),
+  [actions.GET_SERVICES_BY_USER]: (state, { currentService }) => ({
     ...state,
     currentService,
   }),

@@ -53,7 +53,7 @@ export const CardRegister = ({ setToggleAuth }) => {
         referenciaDireccion: '-',
         coordenadaDireccion: '-',
         idTipoDocumento: '6226b89b7d601c360e01481d',
-        idRol: '6226c2d330f8ef4450f47784',
+        idRol: '6260d2165af517fd619899d1',
         estado: 'A',
         fechaCreacion: '2022-03-07T06:30:27.128Z',
         fechaModificacion: '2022-03-07T06:30:27.128Z',

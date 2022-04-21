@@ -17,7 +17,6 @@ const CreateServicio = () => {
   const schema = object({
     detalle: string().required('Detalle es requerido'),
     observacion: string().required('Observación es requerido'),
-    descripcion: string().required('descripcion es requerida'),
     monto: number().required('Monto es requerido'),
   });
 
@@ -34,11 +33,12 @@ const CreateServicio = () => {
     const payload = {
       ...data,
       idCorePersona: currentUser._id,
-      idEstadoServicio: '62425882b46db72a3afdb9f9',
+      idEstadoServicio: '6260d2ec5af517fd619899d8',
       estado: 'A',
       fechaCreacion: '2022-03-28T02:43:31.551Z',
       fechaModificacion: '2022-03-28T02:43:31.551Z',
       idUsuarioCreacion: 1,
+      descripcion: '',
       idUsuarioModificacion: 1,
     };
     dispatch(createService(payload));
@@ -65,12 +65,6 @@ const CreateServicio = () => {
               name="observacion"
               register={register}
               error={errors.observacion?.message}
-            />
-            <MInput
-              label="Descripcion"
-              name="descripcion"
-              register={register}
-              error={errors.descripcion?.message}
             />
             <MInput
               label="Monto"

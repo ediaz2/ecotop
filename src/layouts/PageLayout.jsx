@@ -20,13 +20,13 @@ export const PageLayout = ({ children }) => {
 
   return (
     <div className="bg-base h-screen">
-      <div className="h-full grid grid-cols-[auto_1fr]">
-        <OSidebar />
-        {isLoading ? (
-          <div className="h-full flex justify-center items-center">
-            <div className="text-3xl text-primary">Cargando...</div>
-          </div>
-        ) : (
+      {isLoading ? (
+        <div className="h-full w-full flex justify-center items-center">
+          <div className="text-3xl text-primary">Cargando...</div>
+        </div>
+      ) : (
+        <div className="h-full grid grid-cols-[auto_1fr]">
+          <OSidebar />
           <div className="grid grid-rows-[80px_1fr]">
             <header className="bg-white flex items-center p-6">
               <h2 className="text-2xl font-bold">
@@ -35,8 +35,8 @@ export const PageLayout = ({ children }) => {
             </header>
             <div>{children}</div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

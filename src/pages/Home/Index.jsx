@@ -1,9 +1,30 @@
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { MContainer } from 'components/molecules/MContainer';
 import { MBox } from 'components/molecules/MBox';
 import { useNavigate } from 'react-router-dom';
+import { getServicesByUser } from 'store/servicioReducer';
 
 const HomePage = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const servicios = useSelector((state) => state.servicio.currentService);
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    dispatch(getServicesByUser(currentUser._id)).then(() => {
+      setIsLoading(false);
+    });
+  }, []);
+
+  const estados = {
+    '62425882b46db72a3afdb9f9': 'Finalizado',
+    '6260d2ec5af517fd619899d8': 'Abierto',
+    '6260d2fd5af517fd619899da': 'Proceso',
+  };
   return (
     <>
       <MContainer>
@@ -21,55 +42,33 @@ const HomePage = () => {
         </div>
       </MContainer>
       <MContainer>
-        <div className="grid grid-cols-3 gap-4">
-          <MBox className="p-4 rounded-lg bg-white">
-            <h4 id="name" className="text-xl font-semibold">
-              N° Solicitud #12345
-            </h4>
-            <h3 className="font-semibold text-blue-600">
-              Encargado de Servicio : Juan Perez
-            </h3>
-            <h3 className="font-semibold text-blue-600">Estado : En Proceso</h3>
-            <h3 className="font-semibold text-blue-600">
-              Fecha de Solicitud : 20/03/2020
-            </h3>
-          </MBox>
-          <MBox className="p-4 rounded-lg bg-white">
-            <h4 id="name" className="text-xl font-semibold">
-              N° Solicitud #12345
-            </h4>
-            <h3 className="font-semibold text-blue-600">
-              Encargado de Servicio : Juan Perez
-            </h3>
-            <h3 className="font-semibold text-blue-600">Estado : En Proceso</h3>
-            <h3 className="font-semibold text-blue-600">
-              Fecha de Solicitud : 20/03/2020
-            </h3>
-          </MBox>
-          <MBox className="p-4 rounded-lg bg-white">
-            <h4 id="name" className="text-xl font-semibold">
-              N° Solicitud #12345
-            </h4>
-            <h3 className="font-semibold text-blue-600">
-              Encargado de Servicio : Juan Perez
-            </h3>
-            <h3 className="font-semibold text-blue-600">Estado : En Proceso</h3>
-            <h3 className="font-semibold text-blue-600">
-              Fecha de Solicitud : 20/03/2020
-            </h3>
-          </MBox>
-          <MBox className="p-4 rounded-lg bg-white">
-            <h4 id="name" className="text-xl font-semibold">
-              N° Solicitud #12345
-            </h4>
-            <h3 className="font-semibold text-blue-600">
-              Encargado de Servicio : Juan Perez
-            </h3>
-            <h3 className="font-semibold text-blue-600">Estado : En Proceso</h3>
-            <h3 className="font-semibold text-blue-600">
-              Fecha de Solicitud : 20/03/2020
-            </h3>
-          </MBox>
+        <div className="grid grid-cols-1 gap-4">
+          {isLoading ? (
+            <div className="text-center">Loading...</div>
+          ) : (
+            servicios.map((servicio) => (
+              <MBox key={servicio._id} className="bg-white p-4">
+                <div className="text-sm">
+                  {new Intl.DateTimeFormat('en-US').format(
+                    new Date(servicio.createdAt),
+                  )}
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-semibold text-lg">
+                      {servicio.detalle}
+                    </h3>
+                    <h3 className="font-semibold text-lg">Encargado: ---</h3>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="bg-secondary py-1 rounded-full text-sm px-2 font-bold">
+                      {estados[servicio.idEstadoServicio]}
+                    </span>
+                  </div>
+                </div>
+              </MBox>
+            ))
+          )}
         </div>
       </MContainer>
     </>

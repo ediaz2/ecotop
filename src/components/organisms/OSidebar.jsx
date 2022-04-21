@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { authLogout } from 'store/authReducer';
@@ -14,9 +14,11 @@ import {
   HomeIcon,
   UsersIcon,
   UserIcon,
+  ReceiptTaxIcon,
 } from '@heroicons/react/solid';
 
 export const OSidebar = () => {
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,6 +30,43 @@ export const OSidebar = () => {
     dispatch(authLogout());
     navigate('/login');
   };
+
+  const roles = {
+    '6226c2d330f8ef4450f47784': 'ADMIN',
+    '6260d2165af517fd619899d1': 'GENERAL',
+    '6260d2395af517fd619899d5': 'PROVEEDOR',
+  };
+
+  const pages = [
+    {
+      name: 'Inicio',
+      icon: HomeIcon,
+      path: '/main',
+      can: ['ADMIN', 'GENERAL', 'PROVEEDOR'],
+    },
+    {
+      name: 'Usuarios',
+      icon: UsersIcon,
+      path: '/users',
+      can: ['ADMIN'],
+    },
+    {
+      name: 'Perfil',
+      icon: UserIcon,
+      path: '/profile',
+      can: ['ADMIN', 'GENERAL', 'PROVEEDOR'],
+    },
+    {
+      name: 'Servicios',
+      icon: ReceiptTaxIcon,
+      path: '/servicio/create',
+      can: ['ADMIN', 'PROVEEDOR'],
+    },
+  ];
+
+  const filterPages = pages.filter((pages) =>
+    pages.can.includes(roles[currentUser.idRol]),
+  );
 
   return (
     <aside
@@ -57,18 +96,12 @@ export const OSidebar = () => {
           </div>
           <nav>
             <ul className="space-y-6">
-              <ARouterLink to="/main">
-                <HomeIcon className="flex-shrink-0 text-white w-6 h-6 transition duration-75 mr-3" />
-                <span className="flex-1 whitespace-nowrap">Inicio</span>
-              </ARouterLink>
-              <ARouterLink to="/users">
-                <UsersIcon className="flex-shrink-0 text-white w-6 h-6 transition duration-75 mr-3" />
-                <span className="flex-1 whitespace-nowrap">Usuarios</span>
-              </ARouterLink>
-              <ARouterLink to="/profile">
-                <UserIcon className="flex-shrink-0 text-white w-6 h-6 transition duration-75 mr-3" />
-                <span className="flex-1 whitespace-nowrap">Perfil</span>
-              </ARouterLink>
+              {filterPages.map((page) => (
+                <ARouterLink key={page.name} to={page.path}>
+                  <page.icon className="flex-shrink-0 text-white w-6 h-6 transition duration-75 mr-3" />
+                  <span className="flex-1 whitespace-nowrap">{page.name}</span>
+                </ARouterLink>
+              ))}
             </ul>
           </nav>
         </div>
@@ -76,7 +109,7 @@ export const OSidebar = () => {
           className="!justify-start bg-red text-red-800"
           onClick={signOut}>
           <LogoutIcon className="flex-shrink-0 text-white w-6 h-6 transition duration-75 mr-3" />
-          <span className="flex-1 whitespace-nowrap">Usuarios</span>
+          <span className="flex-1 whitespace-nowrap">Cerrar Sessión</span>
         </Abutton>
       </div>
     </aside>
