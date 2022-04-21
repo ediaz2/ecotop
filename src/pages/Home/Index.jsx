@@ -4,6 +4,7 @@ import { MContainer } from 'components/molecules/MContainer';
 import { MBox } from 'components/molecules/MBox';
 import { useNavigate } from 'react-router-dom';
 import { getServicesByUser } from 'store/servicioReducer';
+import { Abutton } from 'components/atoms/AButton';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -58,7 +59,27 @@ const HomePage = () => {
                     <h3 className="font-semibold text-lg">
                       {servicio.detalle}
                     </h3>
-                    <h3 className="font-semibold text-lg">Encargado: ---</h3>
+                    <span className="text-lg">{servicio.observacion}</span>
+                    <h3 className="font-semibold text-lg">
+                      Proveedor de Servicio:
+                    </h3>
+                    <span className="text-lg">
+                      {servicio.proveedor !== undefined
+                        ? servicio.proveedor.nombre +
+                          ' ' +
+                          servicio.proveedor.apellidoPaterno +
+                          ' ' +
+                          servicio.proveedor.apellidoMaterno
+                        : ''}
+                    </span>
+                    <h3 className="font-semibold text-lg">Dirección:</h3>
+                    <span className="text-lg">{currentUser.direccion}</span>
+                    <Abutton
+                      onClick={() => {
+                        navigate('/servicio/create');
+                      }}>
+                      Ver Mapa
+                    </Abutton>
                   </div>
                   <div className="flex items-center">
                     <span className="bg-secondary py-1 rounded-full text-sm px-2 font-bold">

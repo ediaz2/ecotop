@@ -79,10 +79,33 @@ const AbiertosPage = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
+                    <h3 className="font-semibold text-lg">Cliente</h3>
+                    <span className="text-lg">
+                      {currentUser.nombre +
+                        ' ' +
+                        currentUser.apellidoPaterno +
+                        ' ' +
+                        currentUser.apellidoMaterno}
+                    </span>
                     <h3 className="font-semibold text-lg">
                       {servicio.detalle}
                     </h3>
-                    <h3 className="font-semibold text-lg">Encargado: ---</h3>
+                    <span className="text-lg">{servicio.observacion}</span>
+                    <h3 className="font-semibold text-lg">
+                      Proveedor de Servicio:
+                    </h3>
+                    <span className="text-lg">
+                      {servicio.proveedor !== undefined
+                        ? servicio.proveedor.nombre +
+                          ' ' +
+                          servicio.proveedor.apellidoPaterno +
+                          ' ' +
+                          servicio.proveedor.apellidoMaterno
+                        : ''}
+                    </span>
+                    <h3 className="font-semibold text-lg">Dirección:</h3>
+                    <span className="text-lg">{currentUser.direccion}</span>
+                    <Abutton>Ver Mapa</Abutton>
                   </div>
                   <div className="flex items-center">
                     <Abutton onClick={() => sendAplicar(servicio._id)}>
