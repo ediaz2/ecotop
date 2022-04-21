@@ -37,6 +37,18 @@ export const getCurrentUser = (token) => async (dispatch) => {
   });
 };
 
+export const updateUser = (user, id) => async (dispatch) => {
+  try {
+    const [currentUser] = await authServices.updateUser(user, id);
+    dispatch({
+      type: actions.UPDATE_CURRENT_USER,
+      payload: { currentUser },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const handlers = {
   [actions.AUTH_LOGIN]: (state, { token }) => ({
     ...state,
@@ -51,6 +63,10 @@ const handlers = {
     token: null,
   }),
   [actions.GET_CURRENT_USER]: (state, { currentUser }) => ({
+    ...state,
+    currentUser,
+  }),
+  [actions.UPDATE_CURRENT_USER]: (state, { currentUser }) => ({
     ...state,
     currentUser,
   }),

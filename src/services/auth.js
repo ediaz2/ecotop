@@ -35,3 +35,12 @@ export const getCurrentUser = async (token) => {
     return [null, error];
   }
 };
+
+export const updateUser = async (user, id) => {
+  try {
+    const { data } = await httpClient.put(`corePersona/${id}`, user);
+    return [data.data, null];
+  } catch (error) {
+    return [null, error];
+  }
+};
