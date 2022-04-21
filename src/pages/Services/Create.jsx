@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { string, object } from 'yup';
@@ -6,9 +7,11 @@ import { string, object } from 'yup';
 import { MContainer } from 'components/molecules/MContainer';
 import { MBox } from 'components/molecules/MBox';
 import { MInput } from 'components/molecules/forms/MInput';
+import { MSelect } from 'components/molecules/forms/MSelect';
 import { Abutton } from 'components/atoms/AButton';
 import { number } from 'yup';
 import { createService } from 'store/servicioReducer';
+import { useEffect } from 'react';
 
 const CreateServicio = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -18,7 +21,22 @@ const CreateServicio = () => {
     detalle: string().required('Detalle es requerido'),
     observacion: string().required('Observación es requerido'),
     monto: number().required('Monto es requerido'),
+    idDireccion: string().required('Dirección es requerida'),
   });
+
+  const [direcciones, setDirecciones] = useState([]);
+
+  useEffect(() => {
+    if (currentUser.direcciones) {
+      const direcciones = currentUser.direcciones.map((d) => {
+        return {
+          value: d._id,
+          label: `${d.tipoCalle} ${d.nombreCalle} ${d.numeroCalle} - ${d.distrito} - ${d.provincia} - ${d.departamento}`,
+        };
+      });
+      setDirecciones(direcciones);
+    }
+  }, []);
 
   const {
     register,
@@ -34,6 +52,7 @@ const CreateServicio = () => {
       ...data,
       idCorePersona: currentUser._id,
       idEstadoServicio: '6260d2ec5af517fd619899d8',
+      idDireccion: JSON.parse(data.idDireccion).value,
       estado: 'A',
       fechaCreacion: '2022-03-28T02:43:31.551Z',
       fechaModificacion: '2022-03-28T02:43:31.551Z',
@@ -53,28 +72,42 @@ const CreateServicio = () => {
       </MContainer>
       <MContainer>
         <MBox className="p-4 rounded-lg bg-white">
-          <form onSubmit={onSubmit}>
-            <MInput
-              label="Detalle"
-              name="detalle"
-              register={register}
-              error={errors.detalle?.message}
-            />
-            <MInput
-              label="Observación"
-              name="observacion"
-              register={register}
-              error={errors.observacion?.message}
-            />
-            <MInput
-              label="Monto"
-              name="monto"
-              type="number"
-              register={register}
-              error={errors.monto?.message}
-            />
-            <Abutton type="submit">Crear solicitud</Abutton>
-          </form>
+          {currentUser.direcciones ? (
+            <form onSubmit={onSubmit}>
+              <MInput
+                label="Detalle"
+                name="detalle"
+                register={register}
+                error={errors.detalle?.message}
+              />
+              <MInput
+                label="Observación"
+                name="observacion"
+                register={register}
+                error={errors.observacion?.message}
+              />
+              <MInput
+                label="Monto"
+                name="monto"
+                type="number"
+                register={register}
+                error={errors.monto?.message}
+              />
+              <MSelect
+                label="Dirección"
+                name="idDireccion"
+                options={direcciones}
+                labelKey="label"
+                register={register}
+                error={errors.idDireccion?.message}
+              />
+              <Abutton type="submit">Crear solicitud</Abutton>
+            </form>
+          ) : (
+            <div>
+              <p>No tiene direcciones registradas</p>
+            </div>
+          )}
         </MBox>
       </MContainer>
     </>

@@ -1,6 +1,8 @@
 import * as actions from 'store/actions';
 import * as authServices from 'services/auth';
 
+import { toast } from 'react-toastify';
+
 const authState = {
   currentUser: null,
   token: null,
@@ -43,6 +45,10 @@ export const updateUser = (user, id) => async (dispatch) => {
     dispatch({
       type: actions.UPDATE_CURRENT_USER,
       payload: { currentUser },
+    });
+
+    toast.success('Usuario actualizado correctamente', {
+      theme: 'colored',
     });
   } catch (error) {
     console.log(error);

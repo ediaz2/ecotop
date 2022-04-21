@@ -4,7 +4,6 @@ import { MContainer } from 'components/molecules/MContainer';
 import { MBox } from 'components/molecules/MBox';
 import { useNavigate } from 'react-router-dom';
 import { getServicesByUser } from 'store/servicioReducer';
-import { Abutton } from 'components/atoms/AButton';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -49,10 +48,13 @@ const HomePage = () => {
           ) : (
             servicios.map((servicio) => (
               <MBox key={servicio._id} className="bg-white p-4">
-                <div className="text-sm">
+                <div className="text-xs">
                   {new Intl.DateTimeFormat('en-US').format(
                     new Date(servicio.createdAt),
-                  )}
+                  )}{' '}
+                  <span className="bg-secondary py-1 rounded-full text-sm px-2 font-bold">
+                    {estados[servicio.idEstadoServicio]}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
@@ -73,18 +75,16 @@ const HomePage = () => {
                         : ''}
                     </span>
                     <h3 className="font-semibold text-lg">Dirección:</h3>
-                    <span className="text-lg">{currentUser.direccion}</span>
-                    <Abutton
-                      onClick={() => {
-                        navigate('/servicio/create');
-                      }}>
-                      Ver Mapa
-                    </Abutton>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="bg-secondary py-1 rounded-full text-sm px-2 font-bold">
-                      {estados[servicio.idEstadoServicio]}
-                    </span>
+                    <span className="text-lg">{`${servicio.direccion.tipoCalle} ${servicio.direccion.nombreCalle} ${servicio.direccion.numeroCalle} - ${servicio.direccion.distrito} - ${servicio.direccion.provincia} - ${servicio.direccion.departamento}`}</span>
+                    <div>
+                      <a
+                        href={`https://www.google.com.pe/maps/@${servicio.direccion.coordenadas.latitude},${servicio.direccion.coordenadas.longitude},16z?hl=es-419`}
+                        target="_blank"
+                        className="flex text-primary bg-secondary hover:bg-secondary-200 focus:ring-3 focus:ring-secondary font-bold rounded-lg w-full p-2 justify-center"
+                        rel="noreferrer">
+                        Ver Mapa
+                      </a>
+                    </div>
                   </div>
                 </div>
               </MBox>
