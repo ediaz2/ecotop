@@ -15,11 +15,15 @@ export const createService = async (payload) => {
 
 export const updateService = async (payload) => {
   try {
-    const { data } = await httpClient.put('servicio', payload, {
-      headers: {
-        'Content-Type': 'application/json',
+    const { data } = await httpClient.put(
+      'servicio/' + payload.idServicio,
+      payload,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
     return [data.data, null];
   } catch (error) {
     return [null, error];

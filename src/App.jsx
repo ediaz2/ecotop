@@ -6,6 +6,7 @@ import ProfileEdit from 'pages/Profile/Edit';
 import ProfileAddresses from 'pages/Profile/Addresses';
 import CreateService from 'pages/Services/Create';
 import AbiertoService from 'pages/Services/Abiertos';
+import FinalizarService from 'pages/Services/Finalizar';
 import Home from 'pages/Home/Index';
 import { PageLayout } from 'layouts/PageLayout';
 
@@ -44,6 +45,10 @@ function App() {
       <Route
         path="/profile/addresses"
         element={<PrivateRoute component={ProfileAddresses} />}
+      />
+      <Route
+        path="/servicio/finalizar/:id"
+        element={<PrivateRoute component={FinalizarService} />}
       />
     </Routes>
   );

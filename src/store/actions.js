@@ -11,6 +11,7 @@ export const GET_ALL_USER = 'GET_ALL_USER';
 
 // Reducer service
 export const CREATE_SERVICE = 'CREATE_SERVICE';
+export const UPDATE_SERVICE = 'UPDATE_SERVICE';
 export const GET_SERVICES_BY_USER = 'GET_SERVICES_BY_USER';
 
 // Reducer proveedorService

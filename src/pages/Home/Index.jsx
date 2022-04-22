@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { MContainer } from 'components/molecules/MContainer';
 import { MBox } from 'components/molecules/MBox';
 import { useNavigate } from 'react-router-dom';
+import { Abutton } from 'components/atoms/AButton';
 import { getServicesByUser } from 'store/servicioReducer';
 
 const HomePage = () => {
@@ -85,6 +86,20 @@ const HomePage = () => {
                         Ver Mapa
                       </a>
                     </div>
+                  </div>
+                  <div className="flex items-center">
+                    {servicio.idEstadoServicio !==
+                      '62425882b46db72a3afdb9f9' && (
+                      <Abutton
+                        onClick={() => {
+                          navigate('/servicio/finalizar/' + servicio._id);
+                        }}
+                        className="!justify-start bg-red text-red-800">
+                        <span className="flex-1 whitespace-nowrap">
+                          Finalizar Solicitud
+                        </span>
+                      </Abutton>
+                    )}
                   </div>
                 </div>
               </MBox>
