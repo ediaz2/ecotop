@@ -117,7 +117,7 @@ function AddAddress() {
       <MContainer>
         <div className="flex items-center justify-between">
           <h3 className="text-primary font-semibold text-lg">
-            Mi Perfil / Añadir dirección {newPosition.lat}
+            Mi Perfil / Añadir dirección
           </h3>
           <button
             className=" bg-primary text-white px-3 py-1 rounded"
