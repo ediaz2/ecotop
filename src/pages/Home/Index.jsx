@@ -45,6 +45,10 @@ const HomePage = () => {
         <div className="grid grid-cols-1 gap-4">
           {isLoading ? (
             <div className="text-center">Loading...</div>
+          ) : servicios.length === 0 ? (
+            <div className="text-center text-2xl">
+              Aún genera solicitudes <span className="text-3xl">😢</span>
+            </div>
           ) : (
             servicios.map((servicio) => (
               <MBox key={servicio._id} className="bg-white p-4">

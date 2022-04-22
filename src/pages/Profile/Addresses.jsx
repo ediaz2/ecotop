@@ -27,7 +27,7 @@ function AddAddress() {
   const [departments, setDepartments] = useState([]);
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
-  const [type, setType] = useState('');
+  const [type, setType] = useState('Jiron');
 
   const schema = object({
     departmento: string().required('Departamento es requerido'),
@@ -82,12 +82,20 @@ function AddAddress() {
   });
 
   useEffect(() => {
-    setDepartments(ubigeo.getDepartments());
+    const _departments = ubigeo.getDepartments();
+    const _provinces = ubigeo.getProvince(_departments[0].code);
+    const _districts = ubigeo.getDistrict(_provinces[0].code);
+    setDepartments(_departments);
+    setProvinces(_provinces);
+    setDistricts(_districts);
   }, []);
 
   const onChangeDepartment = (e) => {
     const departmentCode = JSON.parse(e.target.value).code;
-    setProvinces(ubigeo.getProvince(departmentCode));
+    const _provinces = ubigeo.getProvince(departmentCode);
+    const _districts = ubigeo.getDistrict(_provinces[0].code);
+    setProvinces(_provinces);
+    setDistricts(_districts);
   };
 
   const onChangeProvince = (e) => {

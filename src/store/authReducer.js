@@ -56,11 +56,18 @@ export const updateUser = (user, id) => async (dispatch) => {
 };
 
 export const addAddressUser = (addressUser, id) => async (dispatch) => {
-  const [currentUser] = await authServices.addAddressUser(addressUser, id);
-  dispatch({
-    type: actions.ADD_ADDRESS_USER,
-    payload: { currentUser },
-  });
+  try {
+    const [currentUser] = await authServices.addAddressUser(addressUser, id);
+    dispatch({
+      type: actions.ADD_ADDRESS_USER,
+      payload: { currentUser },
+    });
+    toast.success('Dirección agregada correctamente', {
+      theme: 'colored',
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const handlers = {
