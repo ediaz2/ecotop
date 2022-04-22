@@ -1,6 +1,8 @@
 import * as actions from 'store/actions';
 import * as servicioServices from 'services/servicio';
 
+import { toast } from 'react-toastify';
+
 const servicioState = {
   servicios: [],
   currentService: {},
@@ -12,6 +14,9 @@ export const createService = (payload) => async (dispatch) => {
     dispatch({
       type: actions.CREATE_SERVICE,
       payload: { currentService },
+    });
+    toast.success('Solicitud de servicio creada exitosamente', {
+      theme: 'colored',
     });
   } catch (error) {
     console.log(error);

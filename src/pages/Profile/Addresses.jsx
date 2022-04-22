@@ -22,12 +22,21 @@ function AddAddress() {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [newPosition, setNewPosition] = useState({ lng: 0, lat: 0 });
+  const [newPosition, setNewPosition] = useState({
+    lng: -75.1151377973355,
+    lat: -11.429155004201874,
+  });
+
+  useEffect(() => {
+    if (position) {
+      setNewPosition(position);
+    }
+  }, [position]);
 
   const [departments, setDepartments] = useState([]);
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
-  const [type, setType] = useState('');
+  const [type, setType] = useState('Jiron');
 
   const schema = object({
     departmento: string().required('Departamento es requerido'),
@@ -82,12 +91,20 @@ function AddAddress() {
   });
 
   useEffect(() => {
-    setDepartments(ubigeo.getDepartments());
+    const _departments = ubigeo.getDepartments();
+    const _provinces = ubigeo.getProvince(_departments[0].code);
+    const _districts = ubigeo.getDistrict(_provinces[0].code);
+    setDepartments(_departments);
+    setProvinces(_provinces);
+    setDistricts(_districts);
   }, []);
 
   const onChangeDepartment = (e) => {
     const departmentCode = JSON.parse(e.target.value).code;
-    setProvinces(ubigeo.getProvince(departmentCode));
+    const _provinces = ubigeo.getProvince(departmentCode);
+    const _districts = ubigeo.getDistrict(_provinces[0].code);
+    setProvinces(_provinces);
+    setDistricts(_districts);
   };
 
   const onChangeProvince = (e) => {
@@ -185,7 +202,7 @@ function AddAddress() {
               />
             </div>
             <div>
-              <MMap position={position} onSetPosition={setNewPosition} />
+              <MMap position={newPosition} onSetPosition={setNewPosition} />
             </div>
           </MBox>
         </form>
