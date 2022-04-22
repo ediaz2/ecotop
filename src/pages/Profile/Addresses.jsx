@@ -22,7 +22,16 @@ function AddAddress() {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [newPosition, setNewPosition] = useState({ lng: 0, lat: 0 });
+  const [newPosition, setNewPosition] = useState({
+    lng: -75.1151377973355,
+    lat: -11.429155004201874,
+  });
+
+  useEffect(() => {
+    if (position) {
+      setNewPosition(position);
+    }
+  }, [position]);
 
   const [departments, setDepartments] = useState([]);
   const [provinces, setProvinces] = useState([]);
@@ -108,7 +117,7 @@ function AddAddress() {
       <MContainer>
         <div className="flex items-center justify-between">
           <h3 className="text-primary font-semibold text-lg">
-            Mi Perfil / Añadir dirección
+            Mi Perfil / Añadir dirección {newPosition.lat}
           </h3>
           <button
             className=" bg-primary text-white px-3 py-1 rounded"
@@ -193,7 +202,7 @@ function AddAddress() {
               />
             </div>
             <div>
-              <MMap position={position} onSetPosition={setNewPosition} />
+              <MMap position={newPosition} onSetPosition={setNewPosition} />
             </div>
           </MBox>
         </form>
