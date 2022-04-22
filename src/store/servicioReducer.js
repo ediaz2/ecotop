@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 const servicioState = {
   servicios: [],
-  currentService: {},
+  currentService: [],
 };
 
 export const createService = (payload) => async (dispatch) => {
@@ -62,7 +62,12 @@ const handlers = {
   }),
   [actions.UPDATE_SERVICE]: (state, { currentService }) => ({
     ...state,
-    currentService,
+    currentService: state.currentService.map((servicio) => {
+      if (servicio._id === currentService._id) {
+        return Object.assign(servicio, currentService);
+      }
+      return servicio;
+    }),
   }),
 };
 

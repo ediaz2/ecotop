@@ -12,6 +12,7 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   const servicios = useSelector((state) => state.servicio.currentService);
+  console.log(servicios);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const [isLoading, setIsLoading] = useState(true);
 
